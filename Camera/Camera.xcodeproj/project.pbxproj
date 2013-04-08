@@ -16,8 +16,18 @@
 		5F5B3C961712F3E400845C43 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3C951712F3E400845C43 /* Default.png */; };
 		5F5B3C981712F3E400845C43 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3C971712F3E400845C43 /* Default@2x.png */; };
 		5F5B3C9A1712F3E400845C43 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3C991712F3E400845C43 /* Default-568h@2x.png */; };
-		5F5B3C9D1712F3E400845C43 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3C9C1712F3E400845C43 /* ViewController.m */; };
-		5F5B3CA01712F3E400845C43 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3C9E1712F3E400845C43 /* ViewController.xib */; };
+		5F5B3C9D1712F3E400845C43 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3C9C1712F3E400845C43 /* HomeViewController.m */; };
+		5F5B3CA01712F3E400845C43 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3C9E1712F3E400845C43 /* HomeViewController.xib */; };
+		5F5B3CAB1712F6F000845C43 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3CA91712F6F000845C43 /* TakePhotoViewController.m */; };
+		5F5B3CAC1712F6F000845C43 /* TakePhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3CAA1712F6F000845C43 /* TakePhotoViewController.xib */; };
+		5F5B3CB01712F70C00845C43 /* TakeVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3CAE1712F70C00845C43 /* TakeVideoViewController.m */; };
+		5F5B3CB11712F70C00845C43 /* TakeVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B3CAF1712F70C00845C43 /* TakeVideoViewController.xib */; };
+		5F5B3CB31712F96C00845C43 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3CB21712F96C00845C43 /* AVFoundation.framework */; };
+		5F5B3CB51712F97300845C43 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3CB41712F97200845C43 /* QuartzCore.framework */; };
+		5F5B3CB71712F98B00845C43 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3CB61712F98B00845C43 /* CoreImage.framework */; };
+		5F5B3CBA1713006C00845C43 /* CameraUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3CB91713006C00845C43 /* CameraUtilities.m */; };
+		5F5B3CBD1713043C00845C43 /* CameraCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3CBC1713043B00845C43 /* CameraCaptureManager.m */; };
+		5F5B3CC0171304AC00845C43 /* CameraRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B3CBF171304AC00845C43 /* CameraRecorder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +44,24 @@
 		5F5B3C951712F3E400845C43 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5F5B3C971712F3E400845C43 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		5F5B3C991712F3E400845C43 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		5F5B3C9B1712F3E400845C43 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5F5B3C9C1712F3E400845C43 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		5F5B3C9F1712F3E400845C43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		5F5B3C9B1712F3E400845C43 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5F5B3C9C1712F3E400845C43 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		5F5B3C9F1712F3E400845C43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HomeViewController.xib; sourceTree = "<group>"; };
+		5F5B3CA81712F6F000845C43 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
+		5F5B3CA91712F6F000845C43 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
+		5F5B3CAA1712F6F000845C43 /* TakePhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoViewController.xib; sourceTree = "<group>"; };
+		5F5B3CAD1712F70C00845C43 /* TakeVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakeVideoViewController.h; sourceTree = "<group>"; };
+		5F5B3CAE1712F70C00845C43 /* TakeVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakeVideoViewController.m; sourceTree = "<group>"; };
+		5F5B3CAF1712F70C00845C43 /* TakeVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakeVideoViewController.xib; sourceTree = "<group>"; };
+		5F5B3CB21712F96C00845C43 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5F5B3CB41712F97200845C43 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5F5B3CB61712F98B00845C43 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		5F5B3CB81713006C00845C43 /* CameraUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraUtilities.h; sourceTree = "<group>"; };
+		5F5B3CB91713006C00845C43 /* CameraUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraUtilities.m; sourceTree = "<group>"; };
+		5F5B3CBB1713043B00845C43 /* CameraCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraCaptureManager.h; sourceTree = "<group>"; };
+		5F5B3CBC1713043B00845C43 /* CameraCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraCaptureManager.m; sourceTree = "<group>"; };
+		5F5B3CBE171304AC00845C43 /* CameraRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraRecorder.h; sourceTree = "<group>"; };
+		5F5B3CBF171304AC00845C43 /* CameraRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraRecorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +69,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F5B3CB71712F98B00845C43 /* CoreImage.framework in Frameworks */,
+				5F5B3CB51712F97300845C43 /* QuartzCore.framework in Frameworks */,
+				5F5B3CB31712F96C00845C43 /* AVFoundation.framework in Frameworks */,
 				5F5B3C841712F3E400845C43 /* UIKit.framework in Frameworks */,
 				5F5B3C861712F3E400845C43 /* Foundation.framework in Frameworks */,
 				5F5B3C881712F3E400845C43 /* CoreGraphics.framework in Frameworks */,
@@ -73,6 +101,9 @@
 		5F5B3C821712F3E400845C43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F5B3CB61712F98B00845C43 /* CoreImage.framework */,
+				5F5B3CB41712F97200845C43 /* QuartzCore.framework */,
+				5F5B3CB21712F96C00845C43 /* AVFoundation.framework */,
 				5F5B3C831712F3E400845C43 /* UIKit.framework */,
 				5F5B3C851712F3E400845C43 /* Foundation.framework */,
 				5F5B3C871712F3E400845C43 /* CoreGraphics.framework */,
@@ -83,11 +114,13 @@
 		5F5B3C891712F3E400845C43 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				5F5B3CA61712F6AE00845C43 /* TakeVideo */,
+				5F5B3CA71712F6AE00845C43 /* TakePhoto */,
 				5F5B3C921712F3E400845C43 /* AppDelegate.h */,
 				5F5B3C931712F3E400845C43 /* AppDelegate.m */,
-				5F5B3C9B1712F3E400845C43 /* ViewController.h */,
-				5F5B3C9C1712F3E400845C43 /* ViewController.m */,
-				5F5B3C9E1712F3E400845C43 /* ViewController.xib */,
+				5F5B3C9B1712F3E400845C43 /* HomeViewController.h */,
+				5F5B3C9C1712F3E400845C43 /* HomeViewController.m */,
+				5F5B3C9E1712F3E400845C43 /* HomeViewController.xib */,
 				5F5B3C8A1712F3E400845C43 /* Supporting Files */,
 			);
 			path = Camera;
@@ -105,6 +138,32 @@
 				5F5B3C991712F3E400845C43 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5F5B3CA61712F6AE00845C43 /* TakeVideo */ = {
+			isa = PBXGroup;
+			children = (
+				5F5B3CAD1712F70C00845C43 /* TakeVideoViewController.h */,
+				5F5B3CAE1712F70C00845C43 /* TakeVideoViewController.m */,
+				5F5B3CAF1712F70C00845C43 /* TakeVideoViewController.xib */,
+			);
+			path = TakeVideo;
+			sourceTree = "<group>";
+		};
+		5F5B3CA71712F6AE00845C43 /* TakePhoto */ = {
+			isa = PBXGroup;
+			children = (
+				5F5B3CB81713006C00845C43 /* CameraUtilities.h */,
+				5F5B3CB91713006C00845C43 /* CameraUtilities.m */,
+				5F5B3CBE171304AC00845C43 /* CameraRecorder.h */,
+				5F5B3CBF171304AC00845C43 /* CameraRecorder.m */,
+				5F5B3CBB1713043B00845C43 /* CameraCaptureManager.h */,
+				5F5B3CBC1713043B00845C43 /* CameraCaptureManager.m */,
+				5F5B3CA81712F6F000845C43 /* TakePhotoViewController.h */,
+				5F5B3CA91712F6F000845C43 /* TakePhotoViewController.m */,
+				5F5B3CAA1712F6F000845C43 /* TakePhotoViewController.xib */,
+			);
+			path = TakePhoto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,7 +221,9 @@
 				5F5B3C961712F3E400845C43 /* Default.png in Resources */,
 				5F5B3C981712F3E400845C43 /* Default@2x.png in Resources */,
 				5F5B3C9A1712F3E400845C43 /* Default-568h@2x.png in Resources */,
-				5F5B3CA01712F3E400845C43 /* ViewController.xib in Resources */,
+				5F5B3CA01712F3E400845C43 /* HomeViewController.xib in Resources */,
+				5F5B3CAC1712F6F000845C43 /* TakePhotoViewController.xib in Resources */,
+				5F5B3CB11712F70C00845C43 /* TakeVideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +236,12 @@
 			files = (
 				5F5B3C901712F3E400845C43 /* main.m in Sources */,
 				5F5B3C941712F3E400845C43 /* AppDelegate.m in Sources */,
-				5F5B3C9D1712F3E400845C43 /* ViewController.m in Sources */,
+				5F5B3C9D1712F3E400845C43 /* HomeViewController.m in Sources */,
+				5F5B3CAB1712F6F000845C43 /* TakePhotoViewController.m in Sources */,
+				5F5B3CB01712F70C00845C43 /* TakeVideoViewController.m in Sources */,
+				5F5B3CBA1713006C00845C43 /* CameraUtilities.m in Sources */,
+				5F5B3CBD1713043C00845C43 /* CameraCaptureManager.m in Sources */,
+				5F5B3CC0171304AC00845C43 /* CameraRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,12 +256,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		5F5B3C9E1712F3E400845C43 /* ViewController.xib */ = {
+		5F5B3C9E1712F3E400845C43 /* HomeViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5F5B3C9F1712F3E400845C43 /* en */,
 			);
-			name = ViewController.xib;
+			name = HomeViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -261,6 +327,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera/Camera-Prefix.pch";
 				INFOPLIST_FILE = "Camera/Camera-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -272,6 +339,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera/Camera-Prefix.pch";
 				INFOPLIST_FILE = "Camera/Camera-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
