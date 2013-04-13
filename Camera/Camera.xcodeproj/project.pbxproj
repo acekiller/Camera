@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460AC278171960F80008D16C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AC277171960F80008D16C /* ImageIO.framework */; };
+		460AC27A171961000008D16C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AC279171961000008D16C /* AssetsLibrary.framework */; };
+		460AC27C1719610D0008D16C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AC27B1719610D0008D16C /* MobileCoreServices.framework */; };
 		5F5B3C841712F3E400845C43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3C831712F3E400845C43 /* UIKit.framework */; };
 		5F5B3C861712F3E400845C43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3C851712F3E400845C43 /* Foundation.framework */; };
 		5F5B3C881712F3E400845C43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5B3C871712F3E400845C43 /* CoreGraphics.framework */; };
@@ -31,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		460AC277171960F80008D16C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		460AC279171961000008D16C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		460AC27B1719610D0008D16C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5F5B3C801712F3E400845C43 /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5B3C831712F3E400845C43 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5F5B3C851712F3E400845C43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,6 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460AC27C1719610D0008D16C /* MobileCoreServices.framework in Frameworks */,
+				460AC27A171961000008D16C /* AssetsLibrary.framework in Frameworks */,
+				460AC278171960F80008D16C /* ImageIO.framework in Frameworks */,
 				5F5B3CB71712F98B00845C43 /* CoreImage.framework in Frameworks */,
 				5F5B3CB51712F97300845C43 /* QuartzCore.framework in Frameworks */,
 				5F5B3CB31712F96C00845C43 /* AVFoundation.framework in Frameworks */,
@@ -101,6 +110,9 @@
 		5F5B3C821712F3E400845C43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				460AC27B1719610D0008D16C /* MobileCoreServices.framework */,
+				460AC279171961000008D16C /* AssetsLibrary.framework */,
+				460AC277171960F80008D16C /* ImageIO.framework */,
 				5F5B3CB61712F98B00845C43 /* CoreImage.framework */,
 				5F5B3CB41712F97200845C43 /* QuartzCore.framework */,
 				5F5B3CB21712F96C00845C43 /* AVFoundation.framework */,
@@ -364,6 +376,7 @@
 				5F5B3CA51712F3E400845C43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

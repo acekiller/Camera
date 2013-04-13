@@ -30,5 +30,4 @@
 - (id)initWithSession:(AVCaptureSession *)session outputFileURL:(NSURL *)outputFileURL;
 - (void)startRecordingWithOrientation:(AVCaptureVideoOrientation)videoOrientation;
 - (void)stopRecording;
-
 @end
