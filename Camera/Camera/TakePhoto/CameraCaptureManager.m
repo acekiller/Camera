@@ -29,6 +29,22 @@
 
 @implementation CameraCaptureManager
 
+- (void)dealloc{
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:[self deviceConnectedObserver]];
+    [notificationCenter removeObserver:[self deviceDisconnectedObserver]];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    
+    [[self session] stopRunning];
+    [_session release];
+    [_videoInput release];
+    [_audioInput release];
+    [_stillImageOutput release];
+    [_recorder release];
+    
+    [super dealloc];
+}
+
 - (id)init{
     self = [super init];
     if (self) {
@@ -96,7 +112,11 @@
                                                                              queue:nil
                                                                         usingBlock:deviceDisconnectedBlock]];
         
-        // 获取当前驱动的方向的方法
+        // You must call this method before attempting to get orientation data from the receiver.
+        // This method enables the device’s accelerometer hardware and begins the delivery of acceleration events to the receiver.
+        // The receiver subsequently uses these events to post UIDeviceOrientationDidChangeNotification notifications
+        // when the device orientation changes and to update the orientation property.
+        // You may nest calls to this method safely, but you should always match each call with a corresponding call to the endGeneratingDeviceOrientationNotifications method.
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [notificationCenter addObserver:self
                                selector:@selector(deviceOrienfationDidChange)
@@ -233,7 +253,7 @@
                                                                  NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                                                                  ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                                                                  UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                                 [library writeImageToSavedPhotosAlbum:image.CGImage orientation:_orientation completionBlock:completionBlock];
+//                                                                 [library writeImageToSavedPhotosAlbum:image.CGImage orientation:_orientation completionBlock:completionBlock];
                                                                  [image release];
                                                              }else{
                                                                  completionBlock(nil, error);
@@ -254,9 +274,9 @@
         AVCaptureDevicePosition position = [[_videoInput device] position];
         
         if (position == AVCaptureDevicePositionBack) {
-            newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:&error];
-        }else if (position == AVCaptureDevicePositionFront){
             newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self frontFacingCamera] error:&error];
+        }else if (position == AVCaptureDevicePositionFront){
+            newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:&error];
         }else{
             goto bail;
         }
@@ -285,6 +305,40 @@
     return success;
 }
 
+#pragma maek - Set Camera Device Properties
+- (void)autoFocusAtpoint:(CGPoint)point{
+    AVCaptureDevice *device = [[self videoInput] device];
+    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+        NSError *error;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:point];
+            [device setFocusMode:AVCaptureFocusModeAutoFocus];
+            [device unlockForConfiguration];
+        }else {
+            if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
+                [[self delegate] captureManager:self didFailWithError:error];
+            }
+        }
+    }
+}
+
+- (void)continuousFocusAtPoint:(CGPoint)point{
+    AVCaptureDevice *device = [[self videoInput] device];
+    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+        NSError *error;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:point];
+            [device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            [device unlockForConfiguration];
+        }else{
+            if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
+                [[self delegate] captureManager:self didFailWithError:error];
+            }
+        }
+    }
+    
+}
+
 #pragma mark Device Counts
 - (NSUInteger)cametaCount{
     return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] count];
@@ -294,11 +348,23 @@
     return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] count];
 }
 
+// Keep track of current device orientation so it can be applied to movie recordinds and still image captures
 - (void)deviceOrienfationDidChange{
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
     if (deviceOrientation == UIDeviceOrientationPortrait) {
+        _orientation = UIDeviceOrientationPortrait;
+    }else if (deviceOrientation == UIDeviceOrientationPortraitUpsideDown){
+        _orientation = UIDeviceOrientationPortraitUpsideDown;
         
+    // AVCapture and UIDevice have opposite meanings for landscape lefr and right
+    // (AVCapture orientation is the same as UIInterfaceOrientation)
+    }else if (deviceOrientation == UIDeviceOrientationLandscapeLeft){
+        _orientation = UIDeviceOrientationLandscapeRight;
+    }else if (deviceOrientation == UIDeviceOrientationLandscapeRight){
+        _orientation = UIDeviceOrientationLandscapeLeft;
     }
+    
+    // Ignore Device orientatios for which there is no corresponding still image orientation (e.g.UIDeviceOrientationFaceUp)
 }
 
 #pragma mark - Save File URL
@@ -340,7 +406,6 @@
 - (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position{
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
-        NSLog(@"Device name: %@", [device localizedName]);
         if ([device position] == position) {
             return device;
         }
@@ -365,4 +430,42 @@
 //    return nil;
 }
 
+- (void)recorder:(CameraRecorder *)recorder recordingDidFinishToOutputFileURL:(NSURL *)outputFileURL error:(NSError *)error{
+    if ([[self recorder] recordsAudio] && [[self recorder] recordsVideo]) {
+        
+        [self copyFileToDocuments:outputFileURL];
+        if ([[UIDevice currentDevice] isMultitaskingSupported]) {
+            [[UIApplication sharedApplication] endBackgroundTask:[self backgroundRecordingID]];
+        }
+        
+        if ([[self delegate] respondsToSelector:@selector(captureManagerRecordingFinished:)]) {
+            [self.delegate captureManagerRecordingFinished:self];
+        }
+    }else {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL
+                                    completionBlock:^(NSURL *assetURL, NSError *error) {
+                                        if (error) {
+                                            if ([self.delegate respondsToSelector:@selector(captureManager:didFailWithError:)]) {
+                                                [self.delegate captureManager:self didFailWithError:error];
+                                            }
+                                        }
+                                        
+                                        if ([[UIDevice currentDevice] isMultitaskingSupported]) {
+                                            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundRecordingID];
+                                        }
+                                        
+                                        if ([[self delegate] respondsToSelector:@selector(captureManagerRecordingFinished:)]) {
+											[[self delegate] captureManagerRecordingFinished:self];
+										}
+                                    }];
+        [library release];
+    }
+}
+
+- (void)recorderRecordingDidBegin:(CameraRecorder *)recorder{
+    if ([[self delegate] respondsToSelector:@selector(captureManagerRecordingBegan:)]) {
+        [self.delegate captureManagerRecordingBegan:self];
+    }
+}
 @end

@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+
+@class CameraCaptureManager;
+@class AVCaptureVideoPreviewLayer;
+
 /**
  *	@brief	相机主界面
  */
-@interface TakePhotoViewController : UIViewController
+@interface TakePhotoViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (nonatomic, retain) CameraCaptureManager          *captureManager;
+@property (nonatomic, retain) AVCaptureVideoPreviewLayer    *captureVideoPreviewLayer;
+@property (nonatomic, retain) IBOutlet UIView               *videoPreviewView;
+
 
 @end
