@@ -97,6 +97,77 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Private Methods
+// Convert from view coordinates to camera coordinates, where {0,0} represents the top left of the picture area, and {1,1} represents
+// the bottom right in landscape mode with the home button on the right.
+- (CGPoint)converToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates{
+    CGPoint pointOfInterest = CGPointMake(0.5f, 0.5f);
+    CGSize  frameSize = [self.videoPreviewView frame].size;
+    
+    if ([_captureVideoPreviewLayer isMirrored]) {
+        viewCoordinates.x = frameSize.width - viewCoordinates.x;
+    }
+    
+    if ([[_captureVideoPreviewLayer videoGravity] isEqualToString:AVLayerVideoGravityResize]) {
+        // Scale, switch x and y, and reverse x
+        pointOfInterest = CGPointMake(viewCoordinates.y/frameSize.height, 1.0 - (viewCoordinates.x/frameSize.width));
+    }else{
+        CGRect cleanAperture;
+        for (AVCaptureInputPort *port in [[[self captureManager] videoInput] ports]) {
+            if ([port mediaType] == AVMediaTypeVideo) {
+                
+                // get the clean aperture
+                // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
+                // that represents image data valid for display.
+                cleanAperture = CMVideoFormatDescriptionGetCleanAperture([port formatDescription], YES);
+                CGSize apertureSize = cleanAperture.size;
+                CGPoint point = viewCoordinates;
+                
+                CGFloat aperureRatio = apertureSize.height / apertureSize.width;
+                CGFloat viewRatio    = frameSize.width / frameSize.height;
+                CGFloat xc = 0.5f;
+                CGFloat yc = 0.5f;
+                
+                if ([[_captureVideoPreviewLayer videoGravity] isEqualToString:AVLayerVideoGravityResizeAspect]) {
+                    if (viewRatio > aperureRatio) {
+                        CGFloat y2 = frameSize.height;
+                        CGFloat x2 = frameSize.height * aperureRatio;
+                        CGFloat x1 = frameSize.width;
+                        CGFloat blackBar = (x1 - x2)/2;
+                        
+                        // If point is inside letterboxed area, do coordinate conversion;
+                        // otherwise, don't change the default value returned (.5, .5)
+                        if (point.x >= blackBar && point.x <= blackBar + x2) {
+                            // Scale (accouting for the letterboxing on the left and right of the video preview)
+                            // switch x and y, and reverse x
+                            xc = point.y / y2;
+                            yc = 1.0f - (point.x - blackBar)/x2;
+                        }
+                    }else{
+                        CGFloat y2 = frameSize.width/aperureRatio;
+                        CGFloat y1 = frameSize.height;
+                        CGFloat x2 = frameSize.width;
+                        CGFloat blackBar = (y1 - y2)/2;
+                        
+                        // If point is inside letterboxed area, do coordinate conversion
+                        // otherwise, don't change the default value returned (.5, .5)
+                        if (point.y >= blackBar && point.y <= blackBar + y2) {
+                            // Scale (accounting for the letterboxing on the top and bottom of the video preview), switch x and y, and reverse x
+                            xc = (point.y - blackBar)/y2;
+                            yc = 1.0f - (point.x/x2);                                                                                                                                         
+                        }
+                    }
+                    
+                }else if ([[_captureVideoPreviewLayer videoGravity] isEqualToString:AVLayerVideoGravityResizeAspectFill]){
+                    
+                }
+                
+                // if point is inside letterboxed area, do coordinate conversi
+            }
+            
+        }
+    }
+}
 
 #pragma mark - IBAction Methods
 - (IBAction)handleActionToggleCamera:(id)sender {
@@ -130,5 +201,31 @@
 - (IBAction)handleActionTogglePhotoFrame:(id)sender {
 }
 
-#pragma mark - 
+#pragma mark - CameCaptureManager Delegate
+- (void)captureManager:(CameraCaptureManager *)captureManger didFailWithError:(NSError *)error{
+    CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error localizedDescription]
+                                                            message:[error localizedFailureReason]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+    });
+}
+
+- (void)captureManagerRecordingBegan:(CameraCaptureManager *)captureManger{
+    
+}
+
+- (void)captureManagerRecordingFinished:(CameraCaptureManager *)captureManger{
+    
+}
+
+- (void)captureManagerStillImageCaptured:(CameraCaptureManager *)captureManger{
+    
+}
+
+- (void)captureManagerDeviceConfigurationChanged:(CameraCaptureManager *)captureManager{
+}
 @end
