@@ -27,10 +27,4 @@
     return self;
 }
 
-- (void)dealloc{
-    [_themeName release];
-    [_thumbImageName release];
-    [_bigImageName release];
-    [super dealloc];
-}
 @end

@@ -24,7 +24,6 @@
             [session addOutput:aMovieFileOutput];
         }
         [self setMovieFileOutput:aMovieFileOutput];
-        [aMovieFileOutput release];
         aMovieFileOutput = nil;
         
         [self setSession:session];
@@ -35,10 +34,6 @@
 
 - (void)dealloc{
     [[self session] removeOutput:[self movieFileOutput]];
-    [_session release];
-    [_outputFileURL release];
-    [_movieFileOutput release];
-    [super dealloc];
 }
 
 - (BOOL)recordsVideo{

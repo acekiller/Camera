@@ -27,16 +27,16 @@
 
 @interface CameraCaptureManager : NSObject
 
-@property (nonatomic, retain) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
-@property (nonatomic, retain) AVCaptureDeviceInput *videoInput;
-@property (nonatomic, retain) AVCaptureDeviceInput *audioInput;
-@property (nonatomic, retain) AVCaptureStillImageOutput *stillImageOutput;
-@property (nonatomic, retain) CameraRecorder *recorder;
-@property (nonatomic, assign) id deviceConnectedObserver;
-@property (nonatomic, assign) id deviceDisconnectedObserver;
+@property (nonatomic, strong) AVCaptureDeviceInput *videoInput;
+@property (nonatomic, strong) AVCaptureDeviceInput *audioInput;
+@property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
+@property (nonatomic, strong) CameraRecorder *recorder;
+@property (nonatomic, weak) id deviceConnectedObserver;
+@property (nonatomic, weak) id deviceDisconnectedObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundRecordingID;
-@property (nonatomic, assign) id <CamperaCaptureManagerDelegate> delegate;
+@property (nonatomic, weak) id <CamperaCaptureManagerDelegate> delegate;
 
 - (BOOL)setupSession;
 - (void)startRecording;

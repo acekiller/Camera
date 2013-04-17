@@ -39,14 +39,12 @@
 - (IBAction)handleActionTakePhoto:(id)sender {
     TakePhotoViewController *takePhotoViewController = [[TakePhotoViewController alloc] initWithNibName:@"TakePhotoViewController" bundle:nil];
     [self.navigationController pushViewController:takePhotoViewController animated:YES];
-    [takePhotoViewController release];
      takePhotoViewController = nil;
 }
 
 - (IBAction)handleActionTakeVideo:(id)sender {
     TakeVideoViewController *takeVideoViewController = [[TakeVideoViewController alloc] initWithNibName:@"TakeVideoViewController" bundle:nil];
     [self.navigationController pushViewController:takeVideoViewController animated:YES];
-    [takeVideoViewController release];
     takeVideoViewController = nil;
 }
 @end

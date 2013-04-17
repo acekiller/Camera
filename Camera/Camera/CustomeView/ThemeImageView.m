@@ -14,21 +14,13 @@
 @interface ThemeImageView ()
 
 @property(nonatomic, assign) CGPoint       touchLocation;             /*< 点中的位置   >*/
-@property(nonatomic, retain) UILabel      *themeNameLabel;            /*< 主题Label   >*/
-@property(nonatomic, retain) UIImageView  *selectedBackgroundView;    /*< 选中的背景图 >*/
-@property(nonatomic, retain) UIImageView  *thumbImageView;            /*< 主题的缩略图 >*/
+@property(nonatomic, strong) UILabel      *themeNameLabel;            /*< 主题Label   >*/
+@property(nonatomic, strong) UIImageView  *selectedBackgroundView;    /*< 选中的背景图 >*/
+@property(nonatomic, strong) UIImageView  *thumbImageView;            /*< 主题的缩略图 >*/
 @end
 
 @implementation ThemeImageView
 
-- (void)dealloc{
-    [_themeName release];
-    [_thumbImageName release];
-    [_themeNameLabel release];
-    [_thumbImageView release];
-    [_selectedBackgroundView release];
-    [super dealloc];
-}
 
 - (void)awakeFromNib{
     [super awakeFromNib];
@@ -43,7 +35,7 @@
     CGRect rect = self.bounds;
     rect.size.width  -= 7;
     rect.size.height -= 7;
-    self.thumbImageView = [[[UIImageView alloc] initWithFrame:rect] autorelease];
+    self.thumbImageView = [[UIImageView alloc] initWithFrame:rect];
     self.thumbImageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self.thumbImageView setBackgroundColor:[UIColor clearColor]];
     [self.thumbImageView setImage:[UIImage imageNamed:self.thumbImageName]];
@@ -52,7 +44,7 @@
     [self addSubview:self.thumbImageView];
     
     // add theme name label
-    self.themeNameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 20)] autorelease];
+    self.themeNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 20)];
     self.themeNameLabel.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2+43);
     self.themeNameLabel.backgroundColor = [UIColor clearColor];
     self.themeNameLabel.text = self.themeName;
@@ -62,7 +54,7 @@
     [self addSubview:self.themeNameLabel];
     
     // add selected backgound image view
-    self.selectedBackgroundView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    self.selectedBackgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
     self.selectedBackgroundView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self.selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self.selectedBackgroundView setImage:[UIImage imageNamed:Selected_Background_Image]];
@@ -124,7 +116,6 @@
  */
 - (void)setThemeName:(NSString *)themeName{
     if (_themeName != themeName) {
-        [_themeName release];
          _themeName = [themeName copy];
         self.themeNameLabel.text = themeName;
     }
@@ -137,7 +128,6 @@
  */
 - (void)setThumbImageName:(NSString *)thumbImageName{
     if (_thumbImageName != thumbImageName) {
-        [_thumbImageName release];
         _thumbImageName = [thumbImageName copy];
         [self.thumbImageView setImage:[UIImage imageNamed:thumbImageName]];
     }

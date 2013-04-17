@@ -16,9 +16,9 @@
  */
 @interface TakePhotoViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, retain) CameraCaptureManager          *captureManager;
-@property (nonatomic, retain) AVCaptureVideoPreviewLayer    *captureVideoPreviewLayer;
-@property (nonatomic, retain) IBOutlet UIView               *videoPreviewView;
+@property (nonatomic, strong) CameraCaptureManager          *captureManager;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer    *captureVideoPreviewLayer;
+@property (nonatomic, strong) IBOutlet UIView               *videoPreviewView;
 
 
 @end

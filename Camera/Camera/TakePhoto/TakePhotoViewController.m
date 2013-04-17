@@ -14,11 +14,11 @@
 
 @interface TakePhotoViewController ()<CamperaCaptureManagerDelegate,ThemeScrollViewDelegate>
 
-@property (retain, nonatomic) IBOutlet UIView *viewFrameContainer;
-@property (retain, nonatomic) IBOutlet ThemeScrollView *frameScrollView;
-@property (retain, nonatomic) IBOutlet UIImageView *imageViewFrame;
+@property (strong, nonatomic) IBOutlet UIView *viewFrameContainer;
+@property (strong, nonatomic) IBOutlet ThemeScrollView *frameScrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewFrame;
 
-- (CGPoint)converToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
+//- (CGPoint)converToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
 
 /**
  *	@brief	翻转摄像头
@@ -43,16 +43,6 @@
 
 @implementation TakePhotoViewController
 
-- (void)dealloc{
-    [_captureManager release];
-    [_videoPreviewView release];
-    [_captureVideoPreviewLayer release];
-    
-    [_viewFrameContainer release];
-    [_frameScrollView release];
-    [_imageViewFrame release];
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -83,7 +73,6 @@
     if ([self captureManager] == nil) {
         CameraCaptureManager *manager = [[CameraCaptureManager alloc] init];
         [self setCaptureManager:manager];
-        [manager release];
         
         [[self captureManager] setDelegate:self];
         
@@ -103,7 +92,6 @@
             [newCaptureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
             [viewLayer insertSublayer:newCaptureVideoPreviewLayer below:[[viewLayer sublayers] objectAtIndex:0]];
             [self setCaptureVideoPreviewLayer:newCaptureVideoPreviewLayer];
-            [newCaptureVideoPreviewLayer release];
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [[[self captureManager] session] startRunning];
@@ -120,7 +108,7 @@
 #pragma mark - Private Methods
 // Convert from view coordinates to camera coordinates, where {0,0} represents the top left of the picture area, and {1,1} represents
 // the bottom right in landscape mode with the home button on the right.
-- (CGPoint)converToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates{
+//- (CGPoint)converToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates{
 //    CGPoint pointOfInterest = CGPointMake(0.5f, 0.5f);
 //    CGSize  frameSize = [self.videoPreviewView frame].size;
 //    
@@ -187,7 +175,7 @@
 //            
 //        }
 //    }
-}
+//}
 
 #pragma mark - IBAction Methods
 - (IBAction)handleActionToggleCamera:(id)sender {
@@ -211,7 +199,6 @@
                          [flashView setAlpha:0.0f];
                      } completion:^(BOOL finished) {
                          [flashView removeFromSuperview];
-                         [flashView release];
                      }];
 }
 
@@ -235,7 +222,6 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
     });
 }
 

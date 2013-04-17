@@ -36,19 +36,13 @@
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     
     [[self session] stopRunning];
-    [_session release];
-    [_videoInput release];
-    [_audioInput release];
-    [_stillImageOutput release];
-    [_recorder release];
     
-    [super dealloc];
 }
 
 - (id)init{
     self = [super init];
     if (self) {
-        __block id weakSelf = self;
+        __weak id weakSelf = self;
         
         void (^deviceConnectionedBlock)(NSNotification *) = ^(NSNotification *notification){
             AVCaptureDevice *device = [notification object];
@@ -162,7 +156,6 @@
     // image format you want.
     NSDictionary *outputSettings = @{AVVideoCodecKey:AVVideoCodecJPEG};
     [newStillImageOutput setOutputSettings:outputSettings];
-    [outputSettings release];
     
     // Create session (use default AVCaptureSessionPresetHigh)
     AVCaptureSession *captureSession = [[AVCaptureSession alloc] init];
@@ -183,10 +176,6 @@
     [self setAudioInput:newAudioInput];
     [self setStillImageOutput:newStillImageOutput];
     
-    [newStillImageOutput release];
-    [newVideoInput release];
-    [newAudioInput release];
-    [captureSession release];
     
     
     // Set up the movie file output
@@ -208,7 +197,6 @@
     }
     
     [self setRecorder:newRecorder];
-    [newRecorder release];
     
     return success= YES;
 }
@@ -250,11 +238,11 @@
                                                              };
                                                              
                                                              if (imageDataSampleBuffer != nil) {
-                                                                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                                                                 UIImage *image = [[UIImage alloc] initWithData:imageData];
+//                                                                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+//                                                                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//                                                                 UIImage *image = [[UIImage alloc] initWithData:imageData];
 //                                                                 [library writeImageToSavedPhotosAlbum:image.CGImage orientation:_orientation completionBlock:completionBlock];
-                                                                 [image release];
+//                                                                 [image release];
                                                              }else{
                                                                  completionBlock(nil, error);
                                                              }
@@ -292,7 +280,6 @@
             }
             [[self session] commitConfiguration];
             success = YES;
-            [newVideoInput release];
         }
         else if (error){
             if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
@@ -305,7 +292,7 @@
     return success;
 }
 
-#pragma maek - Set Camera Device Properties
+#pragma mark - Set Camera Device Properties
 - (void)autoFocusAtpoint:(CGPoint)point{
     AVCaptureDevice *device = [[self videoInput] device];
     if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
@@ -391,7 +378,6 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss"];
     NSString *destinationPath = [documentsDirectory stringByAppendingFormat:@"/output_%@",[dateFormatter stringFromDate:[NSDate date]]];
-    [dateFormatter release];
     
     // 存放文件
     NSError *error;
@@ -459,7 +445,6 @@
 											[[self delegate] captureManagerRecordingFinished:self];
 										}
                                     }];
-        [library release];
     }
 }
 

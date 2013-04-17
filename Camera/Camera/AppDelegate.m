@@ -12,18 +12,12 @@
 
 @implementation AppDelegate
 
-- (void)dealloc{
-    [_window release];
-    [_navigationController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:homeViewController] autorelease];
-    [homeViewController release];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     homeViewController = nil;
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];

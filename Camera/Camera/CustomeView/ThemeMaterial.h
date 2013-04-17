@@ -11,9 +11,9 @@
 @interface ThemeMaterial : NSObject
 
 @property(nonatomic, assign) NSInteger  themeID;            /*< 主题名称 >*/
-@property(nonatomic, retain) NSString  *themeName;          /*< 主题名称 >*/
-@property(nonatomic, retain) NSString  *thumbImageName;     /*< 主题小图名称 >*/
-@property(nonatomic, retain) NSString  *bigImageName;       /*< 主题大图名称 >*/
+@property(nonatomic, strong) NSString  *themeName;          /*< 主题名称 >*/
+@property(nonatomic, strong) NSString  *thumbImageName;     /*< 主题小图名称 >*/
+@property(nonatomic, strong) NSString  *bigImageName;       /*< 主题大图名称 >*/
 
 /**
  *	@brief	根据主题的资源初始化主题

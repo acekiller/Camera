@@ -31,10 +31,10 @@
 
 @interface ThemeScrollView : UIView <ThemeImageViewDelegate>
 
-@property(nonatomic, assign) id<ThemeScrollViewDelegate> delegate;      /*< 事件代理 >*/
-@property(nonatomic, retain) UIImage         *backgroundImage;               /*< 背景图 >*/
-@property(nonatomic, retain) NSMutableArray  *themeImages;                   /*< 所有的主题 >*/
-@property(nonatomic, retain) UIButton        *btnlastThemeCell;              /*< 最后一个视图按钮，--以后扩张为“更多”按钮 >*/
+@property(nonatomic, weak) id<ThemeScrollViewDelegate> delegate;      /*< 事件代理 >*/
+@property(nonatomic, strong) UIImage         *backgroundImage;               /*< 背景图 >*/
+@property(nonatomic, strong) NSMutableArray  *themeImages;                   /*< 所有的主题 >*/
+@property(nonatomic, strong) UIButton        *btnlastThemeCell;              /*< 最后一个视图按钮，--以后扩张为“更多”按钮 >*/
 
 - (CGPoint)getContentOffsetAtIndex:(NSInteger)index;
 - (void)setContentStartAtIndex:(NSInteger)index;

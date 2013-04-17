@@ -19,13 +19,13 @@
 
 @interface CameraRecorder : NSObject
 
-@property (nonatomic,retain) AVCaptureSession *session;
-@property (nonatomic,retain) AVCaptureMovieFileOutput *movieFileOutput;
+@property (nonatomic,strong) AVCaptureSession *session;
+@property (nonatomic,strong) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic,  copy) NSURL *outputFileURL;
 @property (nonatomic, readonly) BOOL recordsVideo;
 @property (nonatomic, readonly) BOOL recordsAudio;
 @property (nonatomic, readonly, getter = isRecording) BOOL recording;
-@property (nonatomic, assign) id<CameraRecorderDelegate> delegate;
+@property (nonatomic, weak) id<CameraRecorderDelegate> delegate;
 
 - (id)initWithSession:(AVCaptureSession *)session outputFileURL:(NSURL *)outputFileURL;
 - (void)startRecordingWithOrientation:(AVCaptureVideoOrientation)videoOrientation;

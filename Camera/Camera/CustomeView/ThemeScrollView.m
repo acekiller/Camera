@@ -16,9 +16,9 @@
 
 @property(nonatomic, assign) CGFloat          startXPosition;     /*< 开始位置 >*/
 @property(nonatomic, assign) CGFloat          themeHPadding;      /*< 每个主题之间的间隔 >*/
-@property(nonatomic, retain) UIImageView     *bgImageView;        /*< 背景图视图 >*/
-@property(nonatomic, retain) UIScrollView    *themeScrollView;    /*< 滚动视图 >*/
-@property(nonatomic, retain) ThemeImageView  *selectedItem;       /*< 保存当前选择的项 >*/
+@property(nonatomic, strong) UIImageView     *bgImageView;        /*< 背景图视图 >*/
+@property(nonatomic, strong) UIScrollView    *themeScrollView;    /*< 滚动视图 >*/
+@property(nonatomic, strong) ThemeImageView  *selectedItem;       /*< 保存当前选择的项 >*/
 
 /**
  *	@brief	加载所有的主题
@@ -33,16 +33,6 @@
 
 @implementation ThemeScrollView
 
-- (void)dealloc{
-    [_themeImages release];
-    [_bgImageView release];
-    [_selectedItem release];
-    [_backgroundImage release];
-    [_themeScrollView release];
-    [_btnlastThemeCell release];
-    
-    [super dealloc];
-}
 
 /**
  *	@brief	从xib加载视图
@@ -73,7 +63,6 @@
     for (NSDictionary * dic in themImagesArray) {
         ThemeMaterial *material = [[ThemeMaterial alloc] initWithDictionary:dic];
         [temp addObject:material];
-        [material release];
          material = nil;
     }
     
@@ -111,8 +100,7 @@
         }
     }
     
-    [_themeImages release];
-    _themeImages = [themeImages retain];
+    _themeImages = themeImages;
     
     // load new imageView
     [self loadThemeImages];
@@ -151,8 +139,7 @@
 - (void)setBtnlastThemeCell:(UIButton *)btnlastThemeCell{
     if (_btnlastThemeCell != btnlastThemeCell) {
         [_btnlastThemeCell removeFromSuperview];
-        [_btnlastThemeCell release];
-        _btnlastThemeCell = [btnlastThemeCell retain];
+        _btnlastThemeCell = btnlastThemeCell;
         
         NSInteger numOfTheme = [[self themeImages] count];
         
@@ -173,13 +160,11 @@
 - (void)themeImageViewWasTapped:(ThemeImageView *)themeImageView{
     if (self.delegate && [self.delegate respondsToSelector:@selector(themeScrollView:didSelectMaterila:)]) {
         [self changeItemStateToNormal];
-        [self.selectedItem release];
-        self.selectedItem = [themeImageView retain];
+        self.selectedItem = themeImageView;
         [self.delegate themeScrollView:self didSelectMaterila:[self.themeImages objectAtIndex:themeImageView.tag - THEME_TAG_BASE]];
     }else{
         [self changeItemStateToNormal];
-        [self.selectedItem release];
-        self.selectedItem = [themeImageView retain];
+        self.selectedItem = themeImageView;
         if ([self.delegate respondsToSelector:@selector(selectedItem:)]) {
             [self.delegate selectedItem:themeImageView.tag - THEME_TAG_BASE];
         }
@@ -196,7 +181,7 @@
     CGFloat scrollViewHeight = bound.size.height;
     
     if (_themeScrollView ==  nil) {
-        self.themeScrollView = [[[UIScrollView alloc] initWithFrame:bound] autorelease];
+        self.themeScrollView = [[UIScrollView alloc] initWithFrame:bound];
         [self addSubview:_themeScrollView];
     }else{
         scrollViewHeight = _themeScrollView.frame.size.height;
@@ -235,7 +220,6 @@
             xPosition += (rect.size.width + _themeHPadding);
             centerPt = themeView.center;
             
-            [themeView release];
              themeView = nil; 
         }
         ++index;

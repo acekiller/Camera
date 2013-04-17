@@ -49,9 +49,9 @@
 
 @interface ThemeImageView : UIView
 
-@property(nonatomic, assign) id<ThemeImageViewDelegate> delegate;         /*< 事件代理 >*/
-@property(nonatomic, retain) NSString *themeName;                         /*< 主题名称 >*/
-@property(nonatomic, retain) NSString *thumbImageName;                    /*< 主题缩略图名称 >*/
+@property(nonatomic, weak) id<ThemeImageViewDelegate> delegate;         /*< 事件代理 >*/
+@property(nonatomic, strong) NSString *themeName;                         /*< 主题名称 >*/
+@property(nonatomic, strong) NSString *thumbImageName;                    /*< 主题缩略图名称 >*/
 
 /**
  *	@brief	设置是否选中状态
